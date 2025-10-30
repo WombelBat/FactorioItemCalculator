@@ -713,13 +713,84 @@
     },
     {
       "name": "uranium-238",
-      "output_name": ["uranium_238","uranium_235"],
-      "output_value": [0.993,0.007],
+      "output_name": ["uranium_238", "uranium_235"],
+      "output_value": [0.993, 0.007],
       "time_req": 12,
       "method_name": ["centrifuge"],
       "method_time": [1],
       "input_name": ["uranium_ore"],
       "input_value": [10],
+      "nr_factories": 0
+    },
+    {
+      "name": "express transport belt",
+      "output_name": ["express_transport_belt"],
+      "output_value": [1],
+      "time_req": 0.5,
+      "method_name": ["assembler 2", "assembler 3"],
+      "method_time": [0.75, 1.25],
+      "input_name": ["fast_transport_belt", "iron_gear_wheel", "lubricant"],
+      "input_value": [1, 10, 20],
+      "nr_factories": 0
+    },
+    {
+      "name": "express underground belt",
+      "output_name": ["express_underground_belt"],
+      "output_value": [2],
+      "time_req": 2,
+      "method_name": ["assembler 2", "assembler 3"],
+      "method_time": [0.75, 1.25],
+      "input_name": ["fast_underground_belt", "iron_gear_wheel", "lubricant"],
+      "input_value": [2, 80, 40],
+      "nr_factories": 0
+    },
+    {
+      "name": "express splitter",
+      "output_name": ["express_splitter"],
+      "output_value": [1],
+      "time_req": 2,
+      "method_name": ["assembler 2", "assembler 3"],
+      "method_time": [0.75, 1.25],
+      "input_name": [
+        "fast_splitter",
+        "iron_gear_wheel",
+        "advanced_circuit",
+        "lubricant"
+      ],
+      "input_value": [1, 10, 10, 80],
+      "nr_factories": 0
+    },
+    {
+      "name": "fast transport belt",
+      "output_name": ["fast_transport_belt"],
+      "output_value": [1],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_gear_wheel", "transport_belt"],
+      "input_value": [5, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "fast underground belt",
+      "output_name": ["fast_underground_belt"],
+      "output_value": [2],
+      "time_req": 2,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_gear_wheel", "underground_belt"],
+      "input_value": [40, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "fast splitter",
+      "output_name": ["fast_splitter"],
+      "output_value": [1],
+      "time_req": 2,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["splitter", "iron_gear_wheel", "electronic_circuit"],
+      "input_value": [1, 10, 10],
       "nr_factories": 0
     }
   ]
