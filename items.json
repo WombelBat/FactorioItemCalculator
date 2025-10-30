@@ -617,6 +617,17 @@
       "input_name": ["electronic_circuit","iron_gear_wheel","iron_plate"],
       "input_value": [1,1,1],
       "nr_factories": 0
+    },
+    {
+      "name": "iron stick",
+      "output_name": ["iron_stick"],
+      "output_value": [2],
+      "time_req": 0.5,
+        "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_plate"],
+      "input_value": [1],
+      "nr_factories": 0
     }
   ]
 }
