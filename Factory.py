@@ -97,7 +97,8 @@ item_list["express splitter"].setFactories(0)
 item_list["fast transport belt"].setFactories(0)
 item_list["fast underground belt"].setFactories(0)
 item_list["fast splitter"].setFactories(0)
-
+item_list["underground belt"].setFactories(0)
+item_list["splitter"].setFactories(0)
 # changed methods
 
 # assemblers  

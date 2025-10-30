@@ -792,6 +792,28 @@
       "input_name": ["splitter", "iron_gear_wheel", "electronic_circuit"],
       "input_value": [1, 10, 10],
       "nr_factories": 0
-    }
+    },
+    {
+    "name": "underground belt",
+    "output_name": ["underground_belt"],
+    "output_value": [2],
+    "time_req": 1,
+    "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+    "method_time": [0.5, 0.75, 1.25],
+    "input_name": ["iron_plate", "transport_belt"],
+    "input_value": [10, 5],
+    "nr_factories": 0
+  },
+  {
+    "name": "splitter",
+    "output_name": ["splitter"],
+    "output_value": [1],
+    "time_req": 1,
+    "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+    "method_time": [0.5, 0.75, 1.25],
+    "input_name": ["electronic_circuit", "iron_plate", "transport_belt"],
+    "input_value": [5, 5, 4],
+    "nr_factories": 0
+  }
   ]
 }
