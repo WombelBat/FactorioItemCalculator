@@ -81,6 +81,22 @@ item_list["Flamethrower ammo"].setFactories(0)
 item_list["Explosives"].setFactories(0)
 item_list["grenade"].setFactories(6)
 item_list["inserter"].setFactories(4)
+item_list["iron stick"].setFactories(4)
+
+item_list["lubricant"].setFactories(0)
+item_list["solid fuel"].setFactories(0)
+item_list["solar panel"].setFactories(0)
+item_list["accumulator"].setFactories(0)
+item_list["radar"].setFactories(0)
+item_list["electric furnace"].setFactories(0)
+item_list["flying robot frame"].setFactories(0)
+item_list["uranium-238"].setFactories(0)
+item_list["express transport belt"].setFactories(0)
+item_list["express underground belt"].setFactories(0)
+item_list["express splitter"].setFactories(0)
+item_list["fast transport belt"].setFactories(0)
+item_list["fast underground belt"].setFactories(0)
+item_list["fast splitter"].setFactories(0)
 
 # changed methods
 
