@@ -44,6 +44,10 @@ class factorioItem():
         self.method = dict(zip(method_name, method_time/100))
         self.input = dict(zip(input_name, input_value)) 
         self.final_input = dict(zip(input_name, input_value)) 
+        
+        if len(self.output) == 1:
+            self.chose_method(1)
+        
 
     def __init__(self,d:dict):
         self.name = d["name"]
@@ -61,6 +65,10 @@ class factorioItem():
         self.method = dict(zip(d["method_name"], d["method_time"]))
         self.input = dict(zip(d["input_name"], d["input_value"]))
         self.final_input = dict(zip(d["input_name"], d["input_value"]))
+        
+        if len(self.method) == 1:
+            self.chose_method(1)
+       
 
     def addSpeedMods(self,type:int , nr:int ):
         if type >3 :
@@ -76,14 +84,24 @@ class factorioItem():
         self.chosen_quantity_mod = list(self.quantity_modifier.keys())[type-1]
         self.nr_quantity_mod = nr
     
+    def getChosenMethod(self):
+        return self.chosen_method
+    
+    def chose_method_by_name(self,method_name:str):
+        if method_name not in self.method:
+            print("Error method not  available")
+            exit()
 
-    def chose_method(self,method_name:str):
-        self.chosen_method = method_name
+        self.chosen_method = method_name.lower()
 
     def chose_method(self,method_itt:int):
         
-        temp = self.method.keys()
-        self.chosen_method = temp[method_itt]
+        temp = list(self.method.keys())
+        if method_itt > len(temp) or method_itt < 1:
+            print("Error method not  available")
+            exit()
+
+        self.chosen_method = temp[method_itt-1]
     
     def setFactories(self,nr_fact:int):
         self.nr_factories = nr_fact
@@ -150,7 +168,7 @@ class factorioItem():
         return self.final_input
     
 
-    def factoriesTOgetOutputX(self,output_wanted:float,output_name="",verbose =False):
+    def factoriesTOgetOutputX(self,output_wanted:float,verbose =False,output_name=""):
         if output_name =="":
             output_name = list(self.output.keys())
             output_name = output_name[0]
@@ -165,7 +183,7 @@ class factorioItem():
 
             nec_fact = ceil(nec_out /items * time_nec)
             if verbose:
-                print(f"To get {output_wanted} {output_name} you need an extra: {nec_fact} {self.chosen_method} for a total of { nec_fact+self.nr_factories} ")
+                print(f"To get {output_wanted} /sec {output_name} you need an extra: {nec_fact} {self.chosen_method} for a total of { nec_fact+self.nr_factories} ")
     
             return nec_fact
         
@@ -182,7 +200,7 @@ class factorioItem():
 
             total_input={}
             if verbose:
-                print(f"To get {output_wanted} {output_name} using {self.chosen_method} you need: ")
+                print(f"To get {output_wanted} /sec {output_name} using {self.chosen_method} you need: ")
             for key,val in self.input.items(): 
 
                 speed_modifier = self.getSpeedMod()
@@ -191,7 +209,7 @@ class factorioItem():
                 total_input[key] = total_fact * val / time_nec
 
                 if verbose:
-                    print(f"{key}: {total_input[key] } per sec")
+                    print(f"{key}: {total_input[key] } /sec")
     
             return total_input
         
