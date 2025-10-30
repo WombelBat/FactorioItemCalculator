@@ -1,22 +1,29 @@
-from factorio_obj import ReadItemsFromFile,factorioItem 
+from factorio_obj import ReadItemsFromFile,factorioItem ,getItemConsputionList,printConsumptionList,getItemProductionList,printProductionList,checkValidityOfconsumptin
 
 
 item_list: dict[str, factorioItem] = {}
 
-lost = "items.json"
+file_name = "items.json"
 
-item_list = ReadItemsFromFile(lost)
+item_list = ReadItemsFromFile(file_name)
 
 # objects with no propper structure:
 # 
-oil_output = 367.8
-iron_ore_output =0
-stone_output =0
-copper_ore_output =0
+# resource outputs as a dict
+resource_outputs: dict[str, float] = {
+    "crude_oil": 367.8,
+    "iron_ore": 0.0,
+    "stone": 0.0,
+    "copper_ore": 0.0,
+    "water" :0.0,
+    "coal": 0.0,
+    "uranium_ore":0.0
 
-# Set number of factories for each item by editing the integers below.
-# Example: item_list["plastic"].setFactories(3)
+}
 
+# real items
+
+# just change the ones that have specific values
 for i in item_list.values():
     if i.getChosenMethod() =="":
         i.chose_method(2)
@@ -75,14 +82,29 @@ item_list["Explosives"].setFactories(0)
 item_list["grenade"].setFactories(6)
 item_list["inserter"].setFactories(4)
 
+# changed methods
+
+# assemblers  
 item_list["inserter"].chose_method(1)
 item_list["transport belt"].chose_method(1)
 item_list["wall"].chose_method(1)
 item_list["automation science pack"].chose_method(1)
 item_list["logistic science pack"].chose_method(1)
 item_list["Electronic circuit"].chose_method(1)
-# just change the ones that have specific values
 
 
+# output side
 item_list["processing unit"].factoriesTOgetOutputX(2,verbose = True)
 item_list["processing unit"].resourcesToGetOutputX(2,verbose=True)
+
+item_consumption_list:{str,float} = getItemConsputionList(item_list)
+item_production_list:{str,float} = getItemProductionList(item_list)
+
+
+
+# printConsumptionList(item_consumption_list)
+
+# printProductionList(item_production_list)
+
+checkValidityOfconsumptin(item_production_list,item_consumption_list,resource_outputs)
+

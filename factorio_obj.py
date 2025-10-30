@@ -226,3 +226,74 @@ def ReadItemsFromFile(file_name:str):
         item_list.update( {i["name"]:factorioItem(i)} )
     
     return item_list
+
+def getItemConsputionList(il: dict[str, factorioItem]):
+    icl:{str,float} = {}
+    for i in il.values():
+        temp_in = i.getInput()
+
+        for j_key, j_val in temp_in.items():
+            if j_key in icl:
+                icl[j_key] +=j_val
+            else:
+                icl.update({j_key: j_val })
+    return icl
+
+
+
+def printConsumptionList(icl:dict[str,float]):
+    print("\nConsumption list: \n")
+    for key,val in icl.items():
+        if val > 0:
+            print(f"{val} {key} /sec consumed")
+
+
+def getItemProductionList(il: dict[str, factorioItem]):
+    ipl:{str,float} = {}
+    for i in il.values():
+        temp_in = i.getOutput()
+
+        for j_key, j_val in temp_in.items():
+            if j_key in ipl:
+                ipl[j_key] +=j_val
+            else:
+                ipl.update({j_key: j_val })
+    return ipl
+
+def printProductionList(ipl:dict[str,float]):
+    print("\nConsumption list: \n")
+    for key,val in ipl.items():
+        if val > 0:
+            print(f"{val} {key} /sec produced")
+
+def checkValidityOfconsumptin(ipl:dict[str,float], icl:{str,float},res_out: dict[str, float], 
+                              verbose_notListed= True, verbose_not_cov = False,verbose_cov=False ):
+    validity_list:dict[str:float]={}
+    print()
+    if verbose_cov or verbose_not_cov:
+        print("Item validity list: \n")
+    for key,val in icl.items():
+        if key in ipl:
+            validity_list.update({key: ipl[key] - val}  )
+            if validity_list[key] >=0:
+                if verbose_cov:
+                    print(f"{key} is covered")
+                
+            else:
+                if verbose_not_cov:
+                    print(f"{key} is not covered by { validity_list[key] }")
+        elif key in res_out:
+            validity_list.update({key: res_out[key] - val}  )
+            if validity_list[key] >=0:
+                if verbose_cov:
+                    print(f"{key} is covered")
+                
+            else:
+                if verbose_not_cov:
+                    print(f"{key} is not covered by { validity_list[key] }")
+        else:
+            validity_list.update( {key: 0 - val}  )
+            if verbose_notListed:
+                print(f"Item {key} is not listed in the  production list or raw resources RECHECK")
+
+
