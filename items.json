@@ -1,0 +1,611 @@
+{
+  "item_count": 39,
+  "items": [
+    {
+      "name": "plastic",
+      "output_name": ["plastic"],
+      "output_value": [2],
+      "time_req": 1,
+      "method_name": ["chemical_plant"],
+      "method_time": [1],
+      "input_name": ["petroleum", "coal"],
+      "input_value": [20, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "sulfur",
+      "output_name": ["sulfur"],
+      "output_value": [2],
+      "time_req": 1,
+      "method_name": ["chemical_plant"],
+      "method_time": [1],
+      "input_name": ["petroleum", "water"],
+      "input_value": [30, 30],
+      "nr_factories": 0
+    },
+    {
+      "name": "Electronic circuit",
+      "output_name": ["electronic_circuit"],
+      "output_value": [1],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["copper_cable", "iron_plate"],
+      "input_value": [3, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "iron plate",
+      "output_name": ["iron_plate"],
+      "output_value": [1],
+      "time_req": 3.2,
+      "method_name": ["furnace", "steel_furnace", "electric_furnace"],
+      "method_time": [1, 2, 2],
+      "input_name": ["iron_ore"],
+      "input_value": [1],
+      "nr_factories": 0
+    },
+    {
+      "name": "copper plate",
+      "output_name": ["copper_plate"],
+      "output_value": [1],
+      "time_req": 3.2,
+      "method_name": ["furnace", "steel_furnace", "electric_furnace"],
+      "method_time": [1, 2, 2],
+      "input_name": ["copper_ore"],
+      "input_value": [1],
+      "nr_factories": 0
+    },
+    {
+      "name": "Advanced circuit",
+      "output_name": ["advanced_circuit"],
+      "output_value": [1],
+      "time_req": 6,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["copper_cable", "electronic_circuit", "plastic"],
+      "input_value": [4, 2, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "Petroleum",
+      "output_name": ["petroleum", "heavy_oil", "light_oil"],
+      "output_value": [55, 25, 45],
+      "time_req": 5,
+      "method_name": ["oil_refinery"],
+      "method_time": [1],
+      "input_name": ["crude_oil", "water"],
+      "input_value": [100, 50],
+      "nr_factories": 0
+    },
+    {
+      "name": "steel plate",
+      "output_name": ["steel_plate"],
+      "output_value": [1],
+      "time_req": 16,
+      "method_name": ["furnace", "steel_furnace", "electric_furnace"],
+      "method_time": [1, 2, 2],
+      "input_name": ["iron_plate"],
+      "input_value": [5],
+      "nr_factories": 0
+    },
+    {
+      "name": "iron gear wheel",
+      "output_name": ["iron_gear_wheel"],
+      "output_value": [1],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_plate"],
+      "input_value": [2],
+      "nr_factories": 0
+    },
+    {
+      "name": "transport belt",
+      "output_name": ["transport_belt"],
+      "output_value": [2],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_plate", "iron_gear_wheel"],
+      "input_value": [1, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "copper cable",
+      "output_name": ["copper_cable"],
+      "output_value": [2],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["copper_plate"],
+      "input_value": [1],
+      "nr_factories": 0
+    },
+    {
+      "name": "assembling machine 1",
+      "output_name": ["assembler_1"],
+      "output_value": [1],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_plate", "iron_gear_wheel", "electronic_circuit"],
+      "input_value": [9, 5, 3],
+      "nr_factories": 0
+    },
+    {
+      "name": "battery",
+      "output_name": ["battery"],
+      "output_value": [1],
+      "time_req": 4,
+      "method_name": ["chemical_plant"],
+      "method_time": [1],
+      "input_name": ["iron_plate", "copper_plate", "sulfuric_acid"],
+      "input_value": [1, 1, 20],
+      "nr_factories": 0
+    },
+    {
+      "name": "sulfuric acid",
+      "output_name": ["sulfuric_acid"],
+      "output_value": [50],
+      "time_req": 1,
+      "method_name": ["chemical_plant"],
+      "method_time": [1],
+      "input_name": ["iron_plate", "sulfur", "water"],
+      "input_value": [1, 5, 100],
+      "nr_factories": 0
+    },
+    {
+      "name": "processing unit",
+      "output_name": ["processing_unit"],
+      "output_value": [1],
+      "time_req": 10,
+      "method_name": ["assembler 2", "assembler 3"],
+      "method_time": [0.75, 1.25],
+      "input_name": ["electronic_circuit", "advanced_circuit", "sulfuric_acid"],
+      "input_value": [20, 2, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "engine unit",
+      "output_name": ["engine_unit"],
+      "output_value": [1],
+      "time_req": 10,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["steel_plate", "iron_gear_wheel", "pipe"],
+      "input_value": [1, 1, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "electric engine unit",
+      "output_name": ["electric_engine_unit"],
+      "output_value": [1],
+      "time_req": 10,
+      "method_name": ["assembler 2", "assembler 3"],
+      "method_time": [0.75, 1.25],
+      "input_name": ["engine_unit", "electronic_circuit", "lubricant"],
+      "input_value": [1, 2, 15],
+      "nr_factories": 0
+    },
+    {
+      "name": "pipe",
+      "output_name": ["pipe"],
+      "output_value": [1],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_plate"],
+      "input_value": [1],
+      "nr_factories": 0
+    },
+    {
+      "name": "low density structure",
+      "output_name": ["low_density_structure"],
+      "output_value": [1],
+      "time_req": 15,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["steel_plate", "copper_plate", "plastic"],
+      "input_value": [2, 20, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "rocket fuel",
+      "output_name": ["rocket_fuel"],
+      "output_value": [1],
+      "time_req": 30,
+      "method_name": ["assembler 2", "assembler 3"],
+      "method_time": [0.75, 1.25],
+      "input_name": ["solid_fuel", "light_oil"],
+      "input_value": [10, 10],
+      "nr_factories": 0
+    },
+    {
+      "name": "speed module",
+      "output_name": ["speed_module"],
+      "output_value": [1],
+      "time_req": 15,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["advanced_circuit", "electronic_circuit"],
+      "input_value": [5, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "efficiency module",
+      "output_name": ["efficiency_module"],
+      "output_value": [1],
+      "time_req": 15,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["advanced_circuit", "electronic_circuit"],
+      "input_value": [5, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "productivity module",
+      "output_name": ["productivity_module"],
+      "output_value": [1],
+      "time_req": 15,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["advanced_circuit", "electronic_circuit"],
+      "input_value": [5, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "satellite",
+      "output_name": ["satellite"],
+      "output_value": [1],
+      "time_req": 5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": [
+        "low_density_structure",
+        "processing_unit",
+        "solar_panel",
+        "accumulator",
+        "radar",
+        "rocket_fuel"
+      ],
+      "input_value": [100, 100, 100, 100, 5, 50],
+      "nr_factories": 0
+    },
+    {
+      "name": "rocket part",
+      "output_name": ["rocket_part"],
+      "output_value": [1],
+      "time_req": 3,
+      "method_name": ["rocket_silo"],
+      "method_time": [1],
+      "input_name": ["processing_unit", "low_density_structure", "rocket_fuel"],
+      "input_value": [10, 10, 10],
+      "nr_factories": 0
+    },
+    {
+      "name": "automation science pack",
+      "output_name": ["automation_science_pack"],
+      "output_value": [1],
+      "time_req": 5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["copper_plate", "iron_gear_wheel"],
+      "input_value": [1, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "logistic science pack",
+      "output_name": ["logistic_science_pack"],
+      "output_value": [1],
+      "time_req": 6,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["transport_belt", "inserter"],
+      "input_value": [1, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "military science pack",
+      "output_name": ["military_science_pack"],
+      "output_value": [2],
+      "time_req": 10,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["piercing_rounds_magazine", "grenade", "wall"],
+      "input_value": [1, 1, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "chemical science pack",
+      "output_name": ["chemical_science_pack"],
+      "output_value": [2],
+      "time_req": 24,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["engine_unit", "advanced_circuit", "sulfur"],
+      "input_value": [2, 3, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "production science pack",
+      "output_name": ["production_science_pack"],
+      "output_value": [3],
+      "time_req": 21,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["electric_furnace", "productivity_module", "rail"],
+      "input_value": [1, 1, 30],
+      "nr_factories": 0
+    },
+    {
+      "name": "utility science pack",
+      "output_name": ["utility_science_pack"],
+      "output_value": [3],
+      "time_req": 21,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": [
+        "low_density_structure",
+        "processing_unit",
+        "flying_robot_frame"
+      ],
+      "input_value": [3, 2, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "space science pack",
+      "output_name": ["space_science_pack"],
+      "output_value": [1000],
+      "time_req": 100,
+      "method_name": ["rocket_silo"],
+      "method_time": [1],
+      "input_name": ["satellite"],
+      "input_value": [1],
+      "nr_factories": 0
+    },
+    {
+      "name": "speed module 2",
+      "output_name": ["speed_module_2"],
+      "output_value": [1],
+      "time_req": 30,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["speed_module", "advanced_circuit", "processing_unit"],
+      "input_value": [4, 5, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "productivity module 2",
+      "output_name": ["productivity_module_2"],
+      "output_value": [1],
+      "time_req": 30,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": [
+        "productivity_module",
+        "advanced_circuit",
+        "processing_unit"
+      ],
+      "input_value": [4, 5, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "efficiency module 2",
+      "output_name": ["efficiency_module_2"],
+      "output_value": [1],
+      "time_req": 30,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": [
+        "efficiency_module",
+        "advanced_circuit",
+        "processing_unit"
+      ],
+      "input_value": [4, 5, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "productivity module 2",
+      "output_name": ["productivity_module_2"],
+      "output_value": [1],
+      "time_req": 30,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": [
+        "productivity_module",
+        "advanced_circuit",
+        "processing_unit"
+      ],
+      "input_value": [4, 5, 5],
+      "nr_factories": 0
+    },
+    {
+      "name": "Stone brick",
+      "output_name": ["stone_brick"],
+      "output_value": [1],
+      "time_req": 3.2,
+      "method_name": ["furnace", "steel_furnace", "electric_furnace"],
+      "method_time": [1, 2, 2],
+      "input_name": ["stone"],
+      "input_value": [2],
+      "nr_factories": 0
+    },
+    {
+      "name": "rail",
+      "output_name": ["rail"],
+      "output_value": [2],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["stone", "steel_plate", "pipe"],
+      "input_value": [1, 1, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "wall",
+      "output_name": ["wall"],
+      "output_value": [1],
+      "time_req": 0.5,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["stone_brick"],
+      "input_value": [5],
+      "nr_factories": 0
+    },
+    {
+      "name": "firearm magazine",
+      "output_name": ["firearm_magazine"],
+      "output_value": [1],
+      "time_req": 1,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["iron_plate"],
+      "input_value": [4],
+      "nr_factories": 0
+    },
+    {
+      "name": "piercing rounds magazine",
+      "output_name": ["piercing_rounds_magazine"],
+      "output_value": [2],
+      "time_req": 6,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["firearm_magazine", "steel_plate", "copper_plate"],
+      "input_value": [2, 1, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "uranium rounds magazine",
+      "output_name": ["uranium_rounds_magazine"],
+      "output_value": [1],
+      "time_req": 10,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["piercing_rounds_magazine", "uranium_238"],
+      "input_value": [1, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "shotgun shells",
+      "output_name": ["shotgun_shells"],
+      "output_value": [1],
+      "time_req": 3,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["copper_plate", "iron_plate"],
+      "input_value": [2, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "piercing shotgun shells",
+      "output_name": ["piercing_shotgun_shells"],
+      "output_value": [1],
+      "time_req": 8,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["shotgun_shells", "copper_plate", "steel_plate"],
+      "input_value": [2, 5, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "cannon shell",
+      "output_name": ["cannon_shell"],
+      "output_value": [1],
+      "time_req": 8,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["steel_plate", "plastic", "explosives"],
+      "input_value": [2, 2, 1],
+      "nr_factories": 0
+    },
+    {
+      "name": "explosive cannon shell",
+      "output_name": ["explosive_cannon_shell"],
+      "output_value": [1],
+      "time_req": 8,
+      "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["steel_plate", "plastic", "explosives"],
+      "input_value": [2, 2, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "artillery shell",
+      "output_name": ["artillery_shell"],
+      "output_value": [1],
+      "time_req": 15,
+       "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["explosives", "radar", "explosive_cannon_shell"],
+      "input_value": [8, 1, 4],
+      "nr_factories": 0
+    },
+    {
+      "name": "rocket",
+      "output_name": ["rocket"],
+      "output_value": [1],
+      "time_req": 4,
+       "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": [ "explosives", "iron_plate"],
+      "input_value": [1, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "explosive rocket",
+      "output_name": ["explosive_rocket"],
+      "output_value": [1],
+      "time_req": 8,
+        "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["rocket", "explosives"],
+      "input_value": [1, 2],
+      "nr_factories": 0
+    },
+    {
+      "name": "atomic bomb",
+      "output_name": ["atomic_bomb"],
+      "output_value": [1],
+      "time_req": 50,
+        "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["processing_unit", "explosives", "uranium_235"],
+      "input_value": [10, 10, 30],
+      "nr_factories": 0
+    },
+    {
+      "name": "Flamethrower ammo",
+      "output_name": ["flamethrower_ammo"],
+      "output_value": [1],
+      "time_req": 6,
+        "method_name": ["chemical_plant"],
+      "method_time": [1],
+      "input_name": ["crude_oil","steel_plate"],
+      "input_value": [100,5],
+      "nr_factories": 0
+    },
+    {
+      "name": "Explosives",
+      "output_name": ["explosives"],
+      "output_value": [21],
+      "time_req": 4,
+        "method_name": ["chemical_plant"],
+      "method_time": [1],
+      "input_name": ["coal","sulfur","water"],
+      "input_value": [1,1,10],
+      "nr_factories": 0
+    },
+    {
+      "name": "grenade",
+      "output_name": ["grenade"],
+      "output_value": [1],
+      "time_req": 8,
+        "method_name": ["assembler 1", "assembler 2", "assembler 3"],
+      "method_time": [0.5, 0.75, 1.25],
+      "input_name": ["coal","iron_plate"],
+      "input_value": [10,5],
+      "nr_factories": 0
+    }
+  ]
+}
