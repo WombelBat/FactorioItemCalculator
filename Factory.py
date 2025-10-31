@@ -1,4 +1,4 @@
-from factorio_obj import ReadItemsFromFile,factorioItem ,getItemConsputionList,printConsumptionList,getItemProductionList,printProductionList,checkValidityOfconsumptin
+from factorio_obj import ReadItemsFromFile,factorioItem ,getItemConsputionList,printConsumptionList,getItemProductionList,printProductionList,checkValidityOfconsumptin,necesarryFactories
 
 
 item_list: dict[str, factorioItem] = {}
@@ -111,8 +111,8 @@ item_list["Electronic circuit"].chose_method(1)
 
 
 # output side
-item_list["processing unit"].factoriesTOgetOutputX(2,verbose = True)
-item_list["processing unit"].resourcesToGetOutputX(2,verbose=True)
+# item_list["processing unit"].factoriesTOgetOutputX(2,verbose = True)
+# item_list["processing unit"].resourcesToGetOutputX(2,verbose=True)
 
 item_consumption_list:{str,float} = getItemConsputionList(item_list)
 item_production_list:{str,float} = getItemProductionList(item_list)
@@ -122,6 +122,20 @@ item_production_list:{str,float} = getItemProductionList(item_list)
 # printConsumptionList(item_consumption_list)
 
 # printProductionList(item_production_list)
+validity_list:dict[str:float]={}
+validity_raw_list:dict[str:float]={}
 
-checkValidityOfconsumptin(item_production_list,item_consumption_list,resource_outputs)
+# validity_list,validity_raw_list = checkValidityOfconsumptin(item_production_list,item_consumption_list,resource_outputs,verbose_not_cov=True,verbose_cov=True)
 
+# somethingh went wrong for this one
+
+necesarryFactories(item_list,resource_outputs)
+
+# print(item_list["iron plate"].getOutput())
+# item_list["iron plate"].factoriesTOget_X_MORE_OUTPUT(26,True)
+
+
+# printConsumptionList(getItemConsputionList(item_list))
+# printProductionList(getItemProductionList(item_list))
+
+print(item_list["Advanced circuit"].method)

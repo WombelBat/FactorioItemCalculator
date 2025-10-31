@@ -1,6 +1,6 @@
 import json
 from math import ceil
-
+import re
 class factorioItem():    
     name=""
     nr_factories=0
@@ -41,7 +41,7 @@ class factorioItem():
         self.output = dict(zip(output_name, output_value))
         self.time_req = time_req
         self.final_output = dict(zip(output_name, output_value))
-        self.method = dict(zip(method_name, method_time/100))
+        self.method = dict(zip(method_name, method_time))
         self.input = dict(zip(input_name, input_value)) 
         self.final_input = dict(zip(input_name, input_value)) 
         
@@ -128,8 +128,8 @@ class factorioItem():
             print("Warning: No factory method chosen! Please choose a method first.")
             return {}
         self.defineOUtput()
-        for key,val in self.output.items(): 
-            if verbose:
+        if verbose:
+            for key,val in self.output.items(): 
                 print(f"{key} = {val} per second")
 
         return self.final_output
@@ -142,7 +142,7 @@ class factorioItem():
             items =(val*quanity_modifier) 
             
             speed_modifier = self.getSpeedMod()
-            time_nec =( (self.time_req/self.method[ self.chosen_method ])* speed_modifier )
+            time_nec =( (self.time_req/ self.method[ self.chosen_method ])* speed_modifier )
 
             self.final_output[key] = self.nr_factories * items/ time_nec 
 
@@ -160,20 +160,42 @@ class factorioItem():
             print("Warning: No factory method chosen! Please choose a method first.")
             return {}
         self.defineInput()
-        for key,val in self.input.items(): 
+        if verbose:
+            for key,val in self.input.items(): 
             
-            if verbose:
                 print(f"{key} = {val} per second")
 
         return self.final_input
     
+    def convertToTimeUnit(self,time_unit:str):
+        t_u_vec = {"s": 1, "sec": 1, "min": 60, "h": 3600, "hour": 3600, "d": 86400, "day": 86400, "days": 86400}
 
-    def factoriesTOgetOutputX(self,output_wanted:float,verbose =False,output_name=""):
+        t_nr = [int(s) for s in re.findall(r'\b\d+\b',time_unit)]
+        if len(t_nr) > 1:
+            print("error in the time unit you can only use whole numbers of one type of unit")
+        elif len(t_nr) < 1:
+            t_nr = 1
+        else:
+            t_nr = t_nr[0]
+        
+        for key, val in t_u_vec.items():
+            if key in time_unit:
+                # print(f"{key}:{val} , {time_unit}")
+                return t_nr * val
+        print("Invalid time unit provided.")
+        return None
+               
+
+    def factoriesTOgetOutputX(self,output_wanted:float,verbose =False,output_name="",time_unit ='s'):
+
         if output_name =="":
             output_name = list(self.output.keys())
             output_name = output_name[0]
+        
         if output_name in self.output:
-            nec_out = output_wanted - self.getOutput()[output_name]
+            time_unit_nr = self.convertToTimeUnit(time_unit)
+
+            nec_out = output_wanted/time_unit_nr - self.getOutput()[output_name]
             
             quanity_modifier = self.getQuantityMod()
             items =(self.output[output_name] * quanity_modifier) 
@@ -183,24 +205,48 @@ class factorioItem():
 
             nec_fact = ceil(nec_out /items * time_nec)
             if verbose:
-                print(f"To get {output_wanted} /sec {output_name} you need an extra: {nec_fact} {self.chosen_method} for a total of { nec_fact+self.nr_factories} ")
+                print(f"To get {output_wanted} /{time_unit} {output_name.capitalize()} you need an extra: {nec_fact} {self.chosen_method} for a total of { nec_fact+self.nr_factories} ")
     
             return nec_fact
         
         print("output dosent exist")
         return
-    
-    def resourcesToGetOutputX(self,output_wanted:float,output_name="",verbose =False):
+    def factoriesTOget_X_MORE_OUTPUT(self,output_wanted:float,verbose =False,output_name="",time_unit = "sec"):
         if output_name =="":
             output_name = list(self.output.keys())
             output_name = output_name[0]
         if output_name in self.output:
+            time_unit_nr = self.convertToTimeUnit(time_unit)
+            # print(f"time uinit:{time_unit_nr} \n")
+            nec_out = output_wanted /time_unit_nr
+            self.defineOUtput()
+            quanity_modifier = self.getQuantityMod()
+            items =(self.output[output_name] * quanity_modifier) 
+            
+            speed_modifier = self.getSpeedMod()
+            time_nec =( self.time_req / (self.method[ self.chosen_method ]* speed_modifier ))
 
-            total_fact = self.nr_factories + self.factoriesTOgetOutputX(output_wanted,output_name)
+            nec_fact = ceil(nec_out /items * time_nec)
+            if verbose:
+                print(f"To get {output_wanted} /{time_unit} {output_name.upper()} MORE you need: {nec_fact} {self.chosen_method}")
+                print(f"For a total of {nec_fact+self.nr_factories} {self.chosen_method} and total production of {output_wanted+self.final_output[output_name]*time_unit_nr}/{time_unit} ( original {self.final_output[output_name]*time_unit_nr}/{time_unit})\n")
+
+            return nec_fact
+        
+        print("output dosent exist")
+        return
+    def resourcesToGetOutputX(self,output_wanted:float,output_name="",verbose =False,time_unit='s'):
+        if output_name =="":
+            output_name = list(self.output.keys())
+            output_name = output_name[0]
+        if output_name in self.output:
+            time_unit_nr = self.convertToTimeUnit(time_unit)
+
+            total_fact = self.nr_factories + self.factoriesTOgetOutputX(output_wanted/time_unit_nr,output_name)
 
             total_input={}
             if verbose:
-                print(f"To get {output_wanted} /sec {output_name} using {self.chosen_method} you need: ")
+                print(f"To get {output_wanted } /{time_unit_nr} {output_name} using {self.chosen_method} you need: ")
             for key,val in self.input.items(): 
 
                 speed_modifier = self.getSpeedMod()
@@ -209,7 +255,7 @@ class factorioItem():
                 total_input[key] = total_fact * val / time_nec
 
                 if verbose:
-                    print(f"{key}: {total_input[key] } /sec")
+                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit}")
     
             return total_input
         
@@ -269,11 +315,13 @@ def printProductionList(ipl:dict[str,float]):
 def checkValidityOfconsumptin(ipl:dict[str,float], icl:{str,float},res_out: dict[str, float], 
                               verbose_notListed= True, verbose_not_cov = False,verbose_cov=False ):
     validity_list:dict[str:float]={}
+    validity_raw_list:dict[str:float]={}
     print()
     if verbose_cov or verbose_not_cov:
         print("Item validity list: \n")
     for key,val in icl.items():
         if key in ipl:
+            # from assemblres and stuff
             validity_list.update({key: ipl[key] - val}  )
             if validity_list[key] >=0:
                 if verbose_cov:
@@ -282,18 +330,45 @@ def checkValidityOfconsumptin(ipl:dict[str,float], icl:{str,float},res_out: dict
             else:
                 if verbose_not_cov:
                     print(f"{key} is not covered by { validity_list[key] }")
+        
         elif key in res_out:
-            validity_list.update({key: res_out[key] - val}  )
-            if validity_list[key] >=0:
+            # raw resources
+            validity_raw_list.update({key: res_out[key] - val}  )
+            if validity_raw_list[key] >=0:
                 if verbose_cov:
-                    print(f"{key} is covered")
+                    print(f"{key} RAW is covered")
                 
             else:
                 if verbose_not_cov:
-                    print(f"{key} is not covered by { validity_list[key] }")
+                    print(f"{key} RAW is not covered by { validity_raw_list[key] }")
         else:
+            # not included
             validity_list.update( {key: 0 - val}  )
             if verbose_notListed:
                 print(f"Item {key} is not listed in the  production list or raw resources RECHECK")
+        
+    return validity_list,validity_raw_list
+
+def necesarryFactories(il: dict[str, factorioItem],raw_resources_out: dict[str, float],verbose=True):
+    ipl:dict[str,float]=getItemProductionList(il)
+    icl:{str,float}=getItemConsputionList(il)
+    factory_need_list:{str,[str,int]} = {}
+    vl:dict[str:float]={}
+    vrl:dict[str:float]={}
+
+    vl,vrl = checkValidityOfconsumptin(ipl,icl,raw_resources_out,verbose_notListed=True)
+
+    for i in il.values():
+        for j in i.getOutput().keys():
+            if j in vl:
+                if vl[j]<0:
+                    factory_need_list.update({j: [i.getChosenMethod(),i.factoriesTOget_X_MORE_OUTPUT(-vl[j],verbose=verbose)]})
+    if verbose:
+        print("\nClean Factory needed List:\n")
+        for key,tot in factory_need_list.items():
+            print(f"{tot[1]} {key} {tot[0]}")
+
+
+    return factory_need_list
 
 
