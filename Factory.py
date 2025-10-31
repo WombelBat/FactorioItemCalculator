@@ -113,7 +113,7 @@ item_list["Electronic circuit"].chose_method(1)
 # item_list["processing unit"].factoriesTOgetOutputX(2,verbose = True)
 # item_list["processing unit"].resourcesToGetOutputX(2,verbose=True)
 
-item_consumption_list:{str,float} =fo.getItemConsputionList(item_list)
+item_consumption_list:{str,float} =fo.getItemConsumptionList(item_list)
 item_production_list:{str,float} = fo.getItemProductionList(item_list)
 
 
@@ -128,7 +128,7 @@ validity_raw_list:dict[str:float]={}
 
 # somethingh went wrong for this one
 
-fo.necesarryFactories(item_list,resource_outputs)
+# fo.necesarryFactories(item_list,resource_outputs)
 
 # print(item_list["iron plate"].getOutput())
 # item_list["iron plate"].factoriesTOget_X_MORE_OUTPUT(26,True)
@@ -136,4 +136,8 @@ fo.necesarryFactories(item_list,resource_outputs)
 
 # printConsumptionList(getItemConsputionList(item_list))
 # printProductionList(getItemProductionList(item_list))
-fo.getListALLItemsWhereNeeded(item_list,resource_outputs,verbose=True)
+# fo.getListALLItemsWhereNeeded(item_list,resource_outputs,verbose=True)
+# item_list["electric furnace"].getFactoriesNeededToGetXoutput(60,verbose=True,time_unit='10 min')
+# item_list["electric furnace"].getResourcesNeededToGetOutputX(60,verbose=True,time_unit='10 min')
+
+fo.getXOutput_FactoriesAnd_Resources(60,"electric furnace",item_list,resource_outputs,time_unit='10 min')

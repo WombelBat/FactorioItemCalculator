@@ -257,7 +257,7 @@ class factorioItem():
                 total_input[key] = total_fact * val / time_nec
 
                 if verbose:
-                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit}")
+                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit} or {total_input[key]} /sec")
     
             return total_input
         
@@ -285,7 +285,7 @@ class factorioItem():
                 total_input[key] = total_fact * val / time_nec
 
                 if verbose:
-                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit}")
+                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit} or {total_input[key]} /sec")
     
             return total_input
         
@@ -293,6 +293,7 @@ class factorioItem():
         return
     
     def getFactoriesNeededToGetXoutput(self,output_wanted:float,output_name="",verbose =False,time_unit='s'):
+        # (assumes you have 0) 
         # tells how many  factories you need (assumes you have 0) to get output_wanted of the output selected
         if output_name =="":
             output_name = list(self.output.keys())
@@ -339,13 +340,18 @@ class factorioItem():
                 total_input[key] = total_fact * val / time_nec
 
                 if verbose:
-                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit}")
+                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit} or {total_input[key]} /sec")
     
             return total_input
         
         print("output dosent exist")
         return
-
+    
+# 
+# 
+#  functions outside the class
+# 
+# 
 def ReadItemsFromFile(file_name:str):
     item_list = {}
     with open(file_name) as f:
@@ -395,7 +401,7 @@ def printProductionList(ipl:dict[str,float]):
         if val > 0:
             print(f"{val} {key} /sec produced")
 
-def checkValidityOfconsumptin(ipl:dict[str,float], icl:{str,float},res_out: dict[str, float], 
+def checkValidityOfconsumptin(ipl:dict[str,float], icl: dict[str,float] ,res_out: dict[str, float], 
                               verbose_notListed= True, verbose_not_cov = False,verbose_cov=False ):
     
     # gives a list of production - consumption for each reasource 
@@ -492,3 +498,79 @@ def getListALLItemsWhereNeeded(il: dict[str, factorioItem],raw_resources_out: di
     
     return inl
 
+def getXOutputFactoriesAnd_Resources_as_well_as_how_many_you_produce(quanitty:float,item_name:str,il: dict[str, factorioItem],raw_resources_out: dict[str, float],verbose=True,time_unit='s'):
+    ipl:dict[str, float] = getItemProductionList(il)
+    icl:dict[str, float] = getItemConsumptionList(il)
+
+    ncl,nclr = checkValidityOfconsumptin(ipl,icl,res_out=raw_resources_out)
+    nr_factories = il[item_name].getFactoriesNeededToGetXoutput(quanitty,verbose=verbose,time_unit=time_unit)
+    resources_list = il[item_name].getResourcesNeededToGetOutputX(quanitty,verbose=verbose,time_unit=time_unit)
+
+    final_resource :dict[str,list[bool,float]]={}
+    if verbose:
+        print()
+    for key,val in resources_list.items():
+        if key in ncl:
+            diff = ncl[key] - val
+            final_resource[key] = (diff > 0, diff)
+            if verbose:
+                if diff < 0:
+                    for j in il.values():
+                        if key in j.getOutput():
+                            temp = j.getFactoriesNeededToGetXoutput(-diff,key)
+                            temp_meth = j.getChosenMethod()
+                    print(f"You need {-diff} {key} /sec more to fulfill demand ie {temp} {temp_meth}")
+                elif diff > 0:
+                    print(f"You will have a surplus of {diff} {key}")
+                else:
+                    print(f"{key} is exactly balanced.")
+
+        elif key in nclr:
+            diff = nclr[key] - val
+            final_resource[key] = (diff > 0, diff)
+            if verbose:
+                if diff < 0:
+                    print(f"You need {-diff} {key} /sec more to fulfill demand")
+                elif diff > 0:
+                    print(f"You will have a surplus of {diff} {key}")
+                else:
+                    print(f"{key} is exactly balanced.")
+
+        else:
+            print("idk error man fuck you")
+            exit(1)
+    
+    return nr_factories,final_resource
+    
+
+
+def getXOutput_FactoriesAnd_Resources(quanitty:float,item_name:str,il: dict[str, factorioItem],raw_resources_out: dict[str, float],verbose=True,time_unit='s'):
+   
+    nr_factories = il[item_name].getFactoriesNeededToGetXoutput(quanitty,verbose=verbose,time_unit=time_unit)
+    resources_list = il[item_name].getResourcesNeededToGetOutputX(quanitty,verbose=verbose,time_unit=time_unit)
+    cum:dict[str,str]={}
+    for j in il.values():
+        for i in j.getOutput().keys():
+            cum.update( { i : j.name } )
+
+
+    final_resource :dict[str,list[int,float]]={}
+    if verbose:
+        print()
+    for key,val in resources_list.items():
+        if cum[key] in il:
+            final_resource[key] = il[ cum[key] ].getFactoriesNeededToGetXoutput(val,key), val
+            if verbose:
+                print(f"You need {val} {key} /sec  to fulfill demand ie {final_resource[key][0]} {il[cum[key]].getChosenMethod()}")
+
+
+        elif cum[key] in raw_resources_out:
+
+            final_resource[key] = 0,val
+            if verbose:
+                print(f"You need RAW {val} {key} /sec  to fulfill demand ie {final_resource[key][0]}")
+
+      
+    
+    return nr_factories,final_resource
+    
