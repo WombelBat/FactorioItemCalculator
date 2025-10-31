@@ -1,11 +1,10 @@
-from factorio_obj import ReadItemsFromFile,factorioItem ,getItemConsputionList,printConsumptionList,getItemProductionList,printProductionList,checkValidityOfconsumptin,necesarryFactories
+import factorio_obj as fo
 
-
-item_list: dict[str, factorioItem] = {}
+item_list: dict[str, fo.factorioItem] = {}
 
 file_name = "items.json"
 
-item_list = ReadItemsFromFile(file_name)
+item_list = fo.ReadItemsFromFile(file_name)
 
 # objects with no propper structure:
 # 
@@ -114,8 +113,8 @@ item_list["Electronic circuit"].chose_method(1)
 # item_list["processing unit"].factoriesTOgetOutputX(2,verbose = True)
 # item_list["processing unit"].resourcesToGetOutputX(2,verbose=True)
 
-item_consumption_list:{str,float} = getItemConsputionList(item_list)
-item_production_list:{str,float} = getItemProductionList(item_list)
+item_consumption_list:{str,float} =fo.getItemConsputionList(item_list)
+item_production_list:{str,float} = fo.getItemProductionList(item_list)
 
 
 
@@ -129,7 +128,7 @@ validity_raw_list:dict[str:float]={}
 
 # somethingh went wrong for this one
 
-necesarryFactories(item_list,resource_outputs)
+fo.necesarryFactories(item_list,resource_outputs)
 
 # print(item_list["iron plate"].getOutput())
 # item_list["iron plate"].factoriesTOget_X_MORE_OUTPUT(26,True)
@@ -137,5 +136,4 @@ necesarryFactories(item_list,resource_outputs)
 
 # printConsumptionList(getItemConsputionList(item_list))
 # printProductionList(getItemProductionList(item_list))
-
-print(item_list["Advanced circuit"].method)
+fo.getListALLItemsWhereNeeded(item_list,resource_outputs,verbose=True)

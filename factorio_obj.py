@@ -187,7 +187,7 @@ class factorioItem():
                
 
     def factoriesTOgetOutputX(self,output_wanted:float,verbose =False,output_name="",time_unit ='s'):
-
+        # tells how many more factories you need to get output_wanted of the output selected
         if output_name =="":
             output_name = list(self.output.keys())
             output_name = output_name[0]
@@ -212,6 +212,7 @@ class factorioItem():
         print("output dosent exist")
         return
     def factoriesTOget_X_MORE_OUTPUT(self,output_wanted:float,verbose =False,output_name="",time_unit = "sec"):
+        # gives the amount of factories needed to get output_wanted more output than already posible
         if output_name =="":
             output_name = list(self.output.keys())
             output_name = output_name[0]
@@ -236,6 +237,7 @@ class factorioItem():
         print("output dosent exist")
         return
     def resourcesToGetOutputX(self,output_wanted:float,output_name="",verbose =False,time_unit='s'):
+        # tells how many more reasources of each type you need to get output_wanted of the wanted output
         if output_name =="":
             output_name = list(self.output.keys())
             output_name = output_name[0]
@@ -262,6 +264,87 @@ class factorioItem():
         print("output dosent exist")
         return
 
+    def resourcesTOget_X_MORE_OUTPUTX(self,output_wanted:float,output_name="",verbose =False,time_unit='s'):
+        # tells how many more reasources of each type  you need to get output_wanted more output
+        if output_name =="":
+            output_name = list(self.output.keys())
+            output_name = output_name[0]
+        if output_name in self.output:
+            time_unit_nr = self.convertToTimeUnit(time_unit)
+
+            total_fact = self.factoriesTOget_X_MORE_OUTPUT(output_wanted/time_unit_nr,output_name)
+
+            total_input={}
+            if verbose:
+                print(f"To get {output_wanted } /{time_unit_nr} MORE {output_name}  using {self.chosen_method} you need: ")
+            for key,val in self.input.items(): 
+
+                speed_modifier = self.getSpeedMod()
+                time_nec = ( (self.time_req/self.method[ self.chosen_method ]) * speed_modifier)
+                                                                                                             
+                total_input[key] = total_fact * val / time_nec
+
+                if verbose:
+                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit}")
+    
+            return total_input
+        
+        print("output dosent exist")
+        return
+    
+    def getFactoriesNeededToGetXoutput(self,output_wanted:float,output_name="",verbose =False,time_unit='s'):
+        # tells how many  factories you need (assumes you have 0) to get output_wanted of the output selected
+        if output_name =="":
+            output_name = list(self.output.keys())
+            output_name = output_name[0]
+        
+        if output_name in self.output:
+            time_unit_nr = self.convertToTimeUnit(time_unit)
+
+            nec_out = output_wanted/time_unit_nr
+            
+            quanity_modifier = self.getQuantityMod()
+            items =(self.output[output_name] * quanity_modifier) 
+            
+            speed_modifier = self.getSpeedMod()
+            time_nec =( (self.time_req/self.method[ self.chosen_method ])* speed_modifier )
+
+            nec_fact = ceil(nec_out /items * time_nec)
+            if verbose:
+                print(f"To get {output_wanted} /{time_unit} {output_name.capitalize()} you need: {nec_fact} {self.chosen_method} ")
+    
+            return nec_fact
+        
+        print("output dosent exist")
+        return
+    def getResourcesNeededToGetOutputX(self,output_wanted:float,output_name="",verbose =False,time_unit='s'):
+        # assumes you have 0 factories unlike other options
+        # tells how many more reasources of each type you need to get output_wanted of the wanted output
+        if output_name =="":
+            output_name = list(self.output.keys())
+            output_name = output_name[0]
+        if output_name in self.output:
+            time_unit_nr = self.convertToTimeUnit(time_unit)
+
+            total_fact = self.getFactoriesNeededToGetXoutput(output_wanted/time_unit_nr,output_name)
+
+            total_input={}
+            if verbose:
+                print(f"To get {output_wanted } /{time_unit_nr} {output_name} using {self.chosen_method} you need: ")
+            for key,val in self.input.items(): 
+
+                speed_modifier = self.getSpeedMod()
+                time_nec = ( (self.time_req/self.method[ self.chosen_method ]) * speed_modifier)
+                                                                                                             
+                total_input[key] = total_fact * val / time_nec
+
+                if verbose:
+                    print(f"{key}: {total_input[key] *time_unit_nr} /{time_unit}")
+    
+            return total_input
+        
+        print("output dosent exist")
+        return
 
 def ReadItemsFromFile(file_name:str):
     item_list = {}
@@ -273,7 +356,7 @@ def ReadItemsFromFile(file_name:str):
     
     return item_list
 
-def getItemConsputionList(il: dict[str, factorioItem]):
+def getItemConsumptionList(il: dict[str, factorioItem]):
     icl:{str,float} = {}
     for i in il.values():
         temp_in = i.getInput()
@@ -287,7 +370,7 @@ def getItemConsputionList(il: dict[str, factorioItem]):
 
 
 
-def printConsumptionList(icl:dict[str,float]):
+def printItemConsumptionList(icl:dict[str,float]):
     print("\nConsumption list: \n")
     for key,val in icl.items():
         if val > 0:
@@ -314,6 +397,11 @@ def printProductionList(ipl:dict[str,float]):
 
 def checkValidityOfconsumptin(ipl:dict[str,float], icl:{str,float},res_out: dict[str, float], 
                               verbose_notListed= True, verbose_not_cov = False,verbose_cov=False ):
+    
+    # gives a list of production - consumption for each reasource 
+    # can print if verbose for ones covered by current setup and/or 
+    # not covered by current setup  
+    
     validity_list:dict[str:float]={}
     validity_raw_list:dict[str:float]={}
     print()
@@ -350,8 +438,11 @@ def checkValidityOfconsumptin(ipl:dict[str,float], icl:{str,float},res_out: dict
     return validity_list,validity_raw_list
 
 def necesarryFactories(il: dict[str, factorioItem],raw_resources_out: dict[str, float],verbose=True):
+    # gives a list (and prints it if verbose) of how many factories you need 
+    # in order to fully fullfill the requirments of all currently existing factories in your factorie 
+
     ipl:dict[str,float]=getItemProductionList(il)
-    icl:{str,float}=getItemConsputionList(il)
+    icl:{str,float}=getItemConsumptionList(il)
     factory_need_list:{str,[str,int]} = {}
     vl:dict[str:float]={}
     vrl:dict[str:float]={}
@@ -371,4 +462,33 @@ def necesarryFactories(il: dict[str, factorioItem],raw_resources_out: dict[str, 
 
     return factory_need_list
 
+
+def getItemsThatNeedX(item_name:str,il: dict[str, factorioItem],need_factory=True,verbose = True,verbose_empty=True):
+    # need_factory parameter refers to does it need to have factories in order to add to the list or just any recepi
+    inl=[]
+    # if verbose :
+    #     print(f"\n{item_name.capitalize()} is needed in: ")
+    for i in il.values():
+        for j in i.getInput().keys():
+            if need_factory and i.nr_factories>0:
+                if item_name == j:
+                    inl.append(i.name)
+            elif not need_factory:
+                if item_name == j:
+                    inl.append(i.name)
+    if  (verbose and verbose_empty) or ( verbose  and not verbose_empty and len(inl)>0 ) :
+        print(f"\n{item_name.capitalize()} is needed in {len(inl)}: ",end=" ")
+        for i in inl:
+            print(f"{i}", end=", ")
+        # print("\n")
+            
+    return inl
+def getListALLItemsWhereNeeded(il: dict[str, factorioItem],raw_resources_out: dict[str, float],need_factory=True,verbose = False,verbose_empty=False):
+    icl:{str,float} = getItemConsumptionList(il)
+    inl :{str,list}={}
+    for key in icl.keys():
+         
+        inl.update({key:getItemsThatNeedX(key,il,need_factory=need_factory,verbose=verbose,verbose_empty = verbose_empty)})
+    
+    return inl
 
